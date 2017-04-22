@@ -40,12 +40,19 @@ While we are waiting for the cluster to deploy we will have a look at docker.
 
 Discussion: How can you scale the web application?
 
-# LAB 5 - Service discovery and load balancing
+# LAB 5 - Service discovery
 1. Deploy the web-api service to your DC/OS cluster:
    Use the daslob/web-api container image, hostPort = 5000 and containerPort = 5000
 2. Scale the service to 2 instances.
 3. Create a service named web-api-test with the command:
 
-	`curl http://web-api.marathon.mesos:5000`
+	`while true; do curl http://web-api.marathon.mesos:5000; sleep 1; done`
 
-3. Deploy the web application (see web-folder) and set the environment variable API = web-api.marathon.mesos:5000
+4. Examine the output of the task. Explain! Discuss!
+
+Discuss: What is the maximum number of possible service instances?
+
+# LAB 6 - Load balancing (and more service discovery)
+5. Install marathon-lb from the package universe, use the default settings
+6. Remove the web-api and redeploy using the settings:
+   hostPort=0, containerPort=5000 and servicePort=10000
